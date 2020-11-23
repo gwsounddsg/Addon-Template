@@ -1,0 +1,13 @@
+{
+    "name": "node-addon-test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./build/Release/node-addon-test",
+    "scripts": {},
+    "author": "",
+    "license": "MIT",
+    "gypfile": true,
+    "dependencies": {
+        "nan": "^2.14.2"
+    }
+}
