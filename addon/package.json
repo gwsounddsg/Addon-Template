@@ -2,8 +2,10 @@
     "name": "node-addon-test",
     "version": "1.0.0",
     "description": "",
-    "main": "./build/Release/node-addon-test",
-    "scripts": {},
+    "main": "main.js",
+    "scripts": {
+        "test": "node main.js"
+    },
     "author": "",
     "license": "MIT",
     "gypfile": true,
