@@ -2,7 +2,7 @@
     "targets": [
         {
             "target_name": "node-addon-test",
-            "sources": ["lib/my-lib.cpp"],
+            "sources": ["myLib.cpp"],
             "include_dirs": [
                 "<!(node -e \"require('nan')\")"
             ]
