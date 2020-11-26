@@ -7,3 +7,5 @@ console.log(addon.addThree(10.2));
 
 console.log(addon.addInts(2, 3));
 console.log(addon.addInts(1.2, 4));
+
+console.log(`True is the new ${addon.flipBool(true)}`);

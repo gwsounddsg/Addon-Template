@@ -74,6 +74,10 @@ NAN_MODULE_INIT(Init) {
     Nan::Set(target,
         Nan::New<String>("addInts").ToLocalChecked(),
         Nan::GetFunction(Nan::New<FunctionTemplate>(AddInts)).ToLocalChecked());
+
+    Nan::Set(target,
+        Nan::New<String>("flipBool").ToLocalChecked(),
+        Nan::GetFunction(Nan::New<FunctionTemplate>(FlipBool)).ToLocalChecked());
 }
 
 NODE_MODULE(my_cpp_addon, Init)
