@@ -19,7 +19,7 @@ NAN_METHOD(AddThree) {
     }
 
     Nan::Maybe<double> value = Nan::To<double>(info[0]);
-    Local<Number> newValue = Nan::New(value.FromJust() + 42);
+    Local<Number> newValue = Nan::New(value.FromJust() + 3);
     info.GetReturnValue().Set(newValue);
 }
 
