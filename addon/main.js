@@ -1,3 +1,3 @@
-var addon = require("bindings")("myLib");
+var addon = require("bindings")("my_cpp_addon");
 
-console.log(addon.hello());
+console.log(addon.myPrint());
