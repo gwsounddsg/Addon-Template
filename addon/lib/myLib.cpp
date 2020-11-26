@@ -1,16 +1,20 @@
 #include <nan.h>
+#include <string>
+#include <iostream>
 
-void Method(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-    info.GetReturnValue().Set(Nan::New("world").ToLocalChecked());
+using namespace std;
+using namespace Nan;
+using namespace v8;
+
+
+NAN_METHOD(MyPrint) {
+    std::cout << "Hello there JavaScript" << std::endl;
 }
 
-void Init(v8::Local<v8::Object> exports) {
-    v8::Local<v8::Context> context = exports->CreationContext();
-    exports->Set(context,
-        Nan::New("hello").ToLocalChecked(),
-        Nan::New<v8::FunctionTemplate>(Method)
-        ->GetFunction(context)
-        .ToLocalChecked());
+NAN_MODULE_INIT(Init) {
+    Nan::Set(target,
+        New<String>("myPrint").ToLocalChecked(),
+        GetFunction(New<FunctionTemplate>(MyPrint)).ToLocalChecked());
 }
 
-NODE_MODULE(hello, Init)
+NODE_MODULE(my_cpp_addon, Init)
