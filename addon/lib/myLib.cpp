@@ -23,6 +23,7 @@ NAN_METHOD(AddThree) {
     info.GetReturnValue().Set(newValue);
 }
 
+// Add two values as integers. Can accept float/double but converted to int
 NAN_METHOD(AddInts) {
     if (info.Length() != 2) {
         Nan::ThrowTypeError("Wrong number of arguments");
@@ -40,6 +41,24 @@ NAN_METHOD(AddInts) {
     int b = info[1]->IntegerValue(context).FromJust();
 
     auto result = Nan::New(a + b);
+    info.GetReturnValue().Set(result);
+}
+
+NAN_METHOD(FlipBool) {
+    if (info.Length() != 1) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
+
+    if (!info[0]->IsBoolean()) {
+        Nan::ThrowTypeError("Argument is not a bool");
+        return;
+    }
+
+    auto isolate = info.GetIsolate();
+    auto arg = info[0]->BooleanValue(isolate);
+
+    auto result = Nan::New(!arg);
     info.GetReturnValue().Set(result);
 }
 
