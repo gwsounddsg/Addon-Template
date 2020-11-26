@@ -112,7 +112,7 @@ INCS_Release := \
 	-I$(srcdir)/node_modules/nan
 
 OBJS := \
-	$(obj).target/$(TARGET)/myLib.o
+	$(obj).target/$(TARGET)/lib/myLib.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)
