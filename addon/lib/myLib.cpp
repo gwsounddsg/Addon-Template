@@ -65,6 +65,7 @@ NAN_METHOD(FlipBool) {
     info.GetReturnValue().Set(result);
 }
 
+// accepts an int for an enum, returns its int value
 NAN_METHOD(EnumValue) {
     if (info.Length() != 1) {
         Nan::ThrowTypeError("Wrong number of arguments");
@@ -82,7 +83,7 @@ NAN_METHOD(EnumValue) {
     info.GetReturnValue().Set(value);
 }
 
-
+// returns a color from an enum as an int
 NAN_METHOD(CurrentColor) {
     auto currentColor = Colors::Blue;
     info.GetReturnValue().Set(currentColor);
