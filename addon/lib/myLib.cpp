@@ -5,6 +5,8 @@
 using namespace std;
 using namespace v8;
 
+enum Colors { Red, Green, Blue };
+
 
 // Basic no param method that prints
 NAN_METHOD(MyPrint) {
@@ -44,6 +46,7 @@ NAN_METHOD(AddInts) {
     info.GetReturnValue().Set(result);
 }
 
+// Take a bool, flip it, and return
 NAN_METHOD(FlipBool) {
     if (info.Length() != 1) {
         Nan::ThrowTypeError("Wrong number of arguments");
@@ -62,6 +65,29 @@ NAN_METHOD(FlipBool) {
     info.GetReturnValue().Set(result);
 }
 
+NAN_METHOD(EnumValue) {
+    if (info.Length() != 1) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
+
+    if (!info[0]->IsNumber()) {
+        Nan::ThrowTypeError("Argument is not a bool");
+        return;
+    }
+
+    auto context = info.GetIsolate()->GetCurrentContext();
+    int value = info[0]->IntegerValue(context).FromJust();
+
+    info.GetReturnValue().Set(value);
+}
+
+
+NAN_METHOD(CurrentColor) {
+    auto currentColor = Colors::Blue;
+    info.GetReturnValue().Set(currentColor);
+}
+
 NAN_MODULE_INIT(Init) {
     Nan::Set(target,
         Nan::New<String>("myPrint").ToLocalChecked(),
@@ -78,6 +104,14 @@ NAN_MODULE_INIT(Init) {
     Nan::Set(target,
         Nan::New<String>("flipBool").ToLocalChecked(),
         Nan::GetFunction(Nan::New<FunctionTemplate>(FlipBool)).ToLocalChecked());
+
+    Nan::Set(target,
+        Nan::New<String>("enumValue").ToLocalChecked(),
+        Nan::GetFunction(Nan::New<FunctionTemplate>(EnumValue)).ToLocalChecked());
+
+    Nan::Set(target,
+        Nan::New<String>("currentColor").ToLocalChecked(),
+        Nan::GetFunction(Nan::New<FunctionTemplate>(CurrentColor)).ToLocalChecked());
 }
 
 NODE_MODULE(my_cpp_addon, Init)
