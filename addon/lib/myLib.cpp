@@ -2,10 +2,16 @@
 #include <string>
 #include <iostream>
 
+#include "stdLib.h"
+
 using namespace std;
 using namespace v8;
 
 enum Colors { Red, Green, Blue };
+
+v8::Local<v8::Context> getContext(Nan::NAN_METHOD_ARGS_TYPE info) {
+    return info.GetIsolate()->GetCurrentContext();
+}
 
 
 // Basic no param method that prints
@@ -87,6 +93,26 @@ NAN_METHOD(EnumValue) {
 NAN_METHOD(CurrentColor) {
     auto currentColor = Colors::Blue;
     info.GetReturnValue().Set(currentColor);
+}
+
+NAN_METHOD(PrintMessage) {
+    if (info.Length() != 1) {
+        Nan::ThrowTypeError("Wrong number of arguments");
+        return;
+    }
+
+    if (!info[0]->IsString()) {
+        Nan::ThrowTypeError("Argument is not a string");
+        return;
+    }
+
+    // auto context = getContext(info);
+    // auto localStr(info[0]->ToString(context));
+
+    // std::cout << localStr << std::endl;
+
+    v8::String::Utf8Value val(info[0]->ToString());
+
 }
 
 NAN_MODULE_INIT(Init) {
